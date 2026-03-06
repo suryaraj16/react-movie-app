@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import MovieCard from "./components/MovieCard";
 import { fetchMovies } from "./services/api";
 import "./App.css";
@@ -8,12 +8,12 @@ function App() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    const getMovies = async () => {
+    const loadMovies = async () => {
       const data = await fetchMovies();
       setMovies(data);
     };
 
-    getMovies();
+    loadMovies();
   }, []);
 
   return (
@@ -21,7 +21,7 @@ function App() {
       <h1>Popular Movies</h1>
 
       <div className="movie-grid">
-        {movies.map((movie) => (
+        {movies && movies.map((movie) => (
           <MovieCard key={movie.imdbID} movie={movie} />
         ))}
       </div>
